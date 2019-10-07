@@ -1,0 +1,39 @@
+<html>
+	<head>
+
+        <style>
+        
+        td {
+            border: solid 1px black;
+        }
+        
+        </style>
+		
+		<script>
+
+        var player = {}
+            player.health = 100;
+            player.mana = 100;
+            
+
+        function aanvallen(object) {
+            if (object.mana > 0){
+            object.mana -= 20;
+            console.log(object.mana);
+            } else {
+                console.log("niet genoeg mana!");
+            }
+        }
+			
+		</script>
+
+	</head>
+
+
+	<body>
+
+        <button type=button value="buy" onclick=aanvallen(player)>gebruik aanval</button>
+	</body>
+
+	
+</html>
