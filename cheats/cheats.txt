@@ -1,0 +1,16 @@
+In this file are commonly used snippets.
+
+localstorage.setItem("name", value)
+
+de aanroep van een methode kan vervangen worden door datgene wat hij returned (als ie iets returned)
+
+git:
+
+pwd: checken waar je bent
+ls: lijst met bestanden
+dir: lijst met bestanden op windows
+cd: change directory
+git push / pull
+
+
+tab = getyp afmaken
