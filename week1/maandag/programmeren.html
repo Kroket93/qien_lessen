@@ -5,12 +5,33 @@
         
         </style>
         <script>
-        
+        function klikFunctie() {
+            var student1Naam = "Johan";
+            var student1Leeftijd = 25;
+            voorstellen(student1Naam, student1Leeftijd);
+        }
+
+        function voorstellen(voornaam, leeftijd) {
+            alert("Hallo, mijn naam is "+voornaam+" en ik ben "+leeftijd+" jaar oud!");
+        }
+
+        function viaEenObject() {
+            var student1 = {};
+                student1.voornaam = "Fred";
+                student1.leeftijd = 45;
+            voorstellenViaEenObject(student1);
+        }
+
+        function voorstellenViaEenObject(student) {
+            alert("Hoi ik ben "+student.voornaam+" en ik ben "+student.leeftijd+" jaar oud");
+        }
+
         </script>
     </head>
     <body>
         <p>Aardappels groeien onder de grond</p>
-        <input type=button value="gratis klikken">
+        <input type=button value="gratis klikken" onclick=klikFunctie()>
+        <input type=button value="gratis via een object klikken" onclick=viaEenObject()>
     </body>
 
 
