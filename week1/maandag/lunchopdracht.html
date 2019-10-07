@@ -19,19 +19,26 @@
         function aanvallen(object) {
             if (object.mana > 0){
             object.mana -= 20;
-            console.log(object.mana);
+            console.log("aanval gelukt! resterend mana: "+object.mana);
             } else {
-                console.log("niet genoeg mana!");
+                alert("Niet genoeg mana!");
             }
+            updateText();
+        }
+        
+        function updateText() {
+            document.getElementById("mana").innerHTML = "Mana: "+player.mana;
         }
 			
 		</script>
-
+    
 	</head>
 
 
 	<body>
-
+        <!-- // <p>test dit moet je niet kunnen zien</p> -->
+        <p>Een gevecht! druk op de knop om aan te vallen!</p>
+        <p id="mana">Mana: 100</p>
         <button type=button value="buy" onclick=aanvallen(player)>gebruik aanval</button>
 	</body>
 
