@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script>
+
+            var personen = []
+
+            function inschrijven() {
+                var persoon = {}
+                persoon.voorNaam = document.getElementById("voornaam").value;
+                persoon.achterNaam = document.getElementById("achternaam").value;
+
+
+                //check of naam er al in staat
+                for (var i=0; i < personen.length; i++) {
+                    if (persoon.voorNaam == personen[i].voorNaam && persoon.achterNaam == personen[i].achterNaam) {
+                        alert("Je naam staat er al in! Probeer een andere naam..")
+                        return;
+                    }
+                }
+
+                persoon.geboortedatum = document.getElementById("geboortedatum").value;
+                
+                //check welke radios gecheckt is
+                var radios = document.getElementsByName("programmeertaal");
+                for (var i=0; i < radios.length; i++) {
+                    if (radios[i].checked) {
+                        persoon.programmeertaal = radios[i].value;
+                   }
+                }
+                persoon.hboGehaald = document.getElementById("hboGehaald").value;
+                personen.push(persoon);
+
+                //JSON stuff
+                var personenOpTeSlaan = JSON.stringify(personen);
+                localStorage.setItem("personenArray", personenOpTeSlaan);
+
+                console.log("nieuw persoon ingeschreven: ");
+                console.log(persoon)
+                console.log("aantal personen ingeschreven: "+personen.length)
+            }
+
+            function uitlezen() {
+                var opgehaaldPersonenArray = localStorage.getItem("personenArray")
+                personen = JSON.parse(opgehaaldPersonenArray)
+                printArray(personen);
+            }
+
+            function printArray(array) {
+                for (var i=0; i < array.length; i++) {
+                    document.getElementById("resultaat").innerHTML += "Voornaam: "+array[i].voorNaam+"<br>"+"Achternaam: "+array[i].achterNaam+"<br>"+"Geboortedatum: "+array[i].geboortedatum+"<br>"+"programmeertaal: "+
+                    array[i].programmeertaal+"<br>"+"HBO diploma gehaald: "+array[i].hboGehaald+"<br><br>"
+                }
+            }
+
+            function clearPersonen() {
+                console.log("probeert personen.length naar nul te zetten")
+                personen = [];
+                var personenOpTeSlaan = JSON.stringify(personen);
+                localStorage.setItem("personenArray", personenOpTeSlaan);
+                console.log(personen.length)
+            }
+
+
+
+			
+		</script>
+	</head>
+
+
+	<body onload=uitlezen()>
+        
+        <input type=button value="Inschrijvingen ophalen" onclick=uitlezen()><br>
+        <input type=button value="Alle inschrijvingen wissen" onclick=clearPersonen()><br>
+        <form>
+            Voornaam: <input id="voornaam" type=text>
+            <br>
+            Achternaam: <input id="achternaam" type=text>
+            <br>
+            Geboortedatum: <input  id="geboortedatum" type=date>
+            <br>
+            Programmeertaal: <br>
+            <input name="programmeertaal" type="radio" value="C#">C#<br>
+            <input name="programmeertaal" type=radio value="Python">Python<br>
+            <input name="programmeertaal" type=radio value="Java">Java<br>
+
+            HBO Diploma gehaald: <input  id="hboGehaald"type="checkbox">
+            <br>                            
+            <input type=button value="Inschrijven" onclick=inschrijven()>
+
+            <p>Deze mensen zijn ingeschreven: </p>
+            <div id="resultaat"></div>
+ 
+        </form>
+
+	</body>
+
+	
+</html>

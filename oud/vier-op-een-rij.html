@@ -1,0 +1,370 @@
+<html>
+	
+	<head>
+		<link rel="stylesheet" type="text/css" href="style.css">
+
+	</head>
+
+	<body onload="updateNames()">
+		
+		<h1>Vier op een rij!</h1>
+		<p>De speler die het eerste vier stenen op een rij heeft, wint!<br>Zowel verticaal, horizontaal als diagonaal mag.</p>
+		<form>
+			Speler 1 naam:<br>
+			<input type="text" name="player 1 name" id="player1NameField" onblur="updateNames();"><br>
+			Speler 2 naam:<br>
+			<input type="text" name="player 2 name" id="player2NameField" onblur="updateNames();"><br>
+		</form>
+
+		<p id="currentPlayerText">Nu aan de beurt: Player1</p>
+
+		<table>
+			<tbody>
+				<tr>
+					<td class="slot" id="0,0"></td>
+					<td class="slot" id="0,1"></td>
+					<td class="slot" id="0,2"></td>
+					<td class="slot" id="0,3"></td>
+					<td class="slot" id="0,4"></td>
+					<td class="slot" id="0,5"></td>
+					<td class="slot" id="0,6"></td>
+				</tr>
+				<tr>
+					<td class="slot" id="1,0"></td>
+					<td class="slot" id="1,1"></td>
+					<td class="slot" id="1,2"></td>
+					<td class="slot" id="1,3"></td>
+					<td class="slot" id="1,4"></td>
+					<td class="slot" id="1,5"></td>
+					<td class="slot" id="1,6"></td>
+				</tr>
+				<tr>
+					<td class="slot" id="2,0"></td>
+					<td class="slot" id="2,1"></td>
+					<td class="slot" id="2,2"></td>
+					<td class="slot" id="2,3"></td>
+					<td class="slot" id="2,4"></td>
+					<td class="slot" id="2,5"></td>
+					<td class="slot" id="2,6"></td>
+				</tr>
+				<tr>
+					<td class="slot" id="3,0"></td>
+					<td class="slot" id="3,1"></td>
+					<td class="slot" id="3,2"></td>
+					<td class="slot" id="3,3"></td>
+					<td class="slot" id="3,4"></td>
+					<td class="slot" id="3,5"></td>
+					<td class="slot" id="3,6"></td>
+				</tr>
+				<tr>
+					<td class="slot" id="4,0"></td>
+					<td class="slot" id="4,1"></td>
+					<td class="slot" id="4,2"></td>
+					<td class="slot" id="4,3"></td>
+					<td class="slot" id="4,4"></td>
+					<td class="slot" id="4,5"></td>
+					<td class="slot" id="4,6"></td>
+				</tr>
+				<tr>
+					<td class="slot" id="5,0"></td>
+					<td class="slot" id="5,1"></td>
+					<td class="slot" id="5,2"></td>
+					<td class="slot" id="5,3"></td>
+					<td class="slot" id="5,4"></td>
+					<td class="slot" id="5,5"></td>
+					<td class="slot" id="5,6"></td>
+				</tr>
+			</tbody>
+		</table>
+
+	<script>
+
+
+		//keeping track of player variables
+		var player1Name = "player_1"
+		var player2Name = "player_2"
+		var player1Color = "bgRed"
+		var player2Color = "bgBlue"
+
+		var currentPlayer = 0
+		var currentColor = player1Color 
+
+
+
+		//keeping track of all slots
+		var slots = document.getElementsByClassName("slot");
+
+		//keeping track of columns, we create 6 column arrays
+			var allColumns = []
+			var col_0 = []
+			var a;
+			for (a=0; a<slots.length; a++) {
+				if (slots[a].id.charAt(2) == "0") {
+					col_0.push(slots[a])
+				}
+			}
+			allColumns.push(col_0)
+			var col_1 = []
+			var b;
+			for (b=0; b<slots.length; b++) {
+				if (slots[b].id.charAt(2) == "1") {
+					col_1.push(slots[b])
+				}
+			}
+			allColumns.push(col_1)
+			var col_2 = []
+			var c;
+			for (c=0; c<slots.length; c++) {
+				if (slots[c].id.charAt(2) == "2") {
+					col_2.push(slots[c])
+				}
+			}
+			allColumns.push(col_2)
+			var col_3 = []
+			var d;
+			for (d=0; d<slots.length; d++) {
+				if (slots[d].id.charAt(2) == "3") {
+					col_3.push(slots[d])
+				}
+			}
+			allColumns.push(col_3)
+			var col_4 = []
+			var e;
+			for (e=0; e<slots.length; e++) {
+				if (slots[e].id.charAt(2) == "4") {
+					col_4.push(slots[e])
+				}
+			}
+			allColumns.push(col_4)
+			var col_5 = []
+			var f;
+			for (f=0; f<slots.length; f++) {
+				if (slots[f].id.charAt(2) == "5") {
+					col_5.push(slots[f])
+				}
+			}
+			allColumns.push(col_5)
+			var col_6 = []
+			var g;
+			for (g=0; g<slots.length; g++) {
+				if (slots[g].id.charAt(2) == "6") {
+					col_6.push(slots[g])
+				}
+			}
+			allColumns.push(col_6)
+
+		//keeping track of all rows, we create 7 row arrays
+			var allRows = []
+			var row_0 = []
+			var i;
+			for (i=0; i<slots.length; i++) {
+				if (slots[i].id.charAt(0) == "0") {
+					row_0.push(slots[i])
+				}
+			}
+			allRows.push(row_0)
+
+			var row_1 = []
+			var i;
+			for (i=0; i<slots.length; i++) {
+				if (slots[i].id.charAt(0) == "1") {
+					row_1.push(slots[i])
+				}
+			}
+			allRows.push(row_1)
+
+			var row_2 = []
+			var i;
+			for (i=0; i<slots.length; i++) {
+				if (slots[i].id.charAt(0) == "2") {
+					row_2.push(slots[i])
+				}
+			}
+			allRows.push(row_2)
+
+			var row_3 = []
+			var i;
+			for (i=0; i<slots.length; i++) {
+				if (slots[i].id.charAt(0) == "3") {
+					row_3.push(slots[i])
+				}
+			}
+			allRows.push(row_3)
+
+			var row_4 = []
+			var i;
+			for (i=0; i<slots.length; i++) {
+				if (slots[i].id.charAt(0) == "4") {
+					row_4.push(slots[i])
+				}
+			}
+			allRows.push(row_4)
+
+			var row_5 = []
+			var i;
+			for (i=0; i<slots.length; i++) {
+				if (slots[i].id.charAt(0) == "5") {
+					row_5.push(slots[i])
+				}
+			}
+			allRows.push(row_5)
+
+			var row_6 = []
+			var i;
+			for (i=0; i<slots.length; i++) {
+				if (slots[i].id.charAt(0) == "6") {
+					row_6.push(slots[i])
+				}
+			}
+			allRows.push(row_6)
+
+
+
+
+
+
+		//initializing onclick event for all slots
+		var i;
+		for (i=0; i <slots.length; i++) {
+			slots[i].onclick = slotClicked;
+		};
+
+		//name updater function
+		function updateNames() {
+			player1Name = document.getElementById("player1NameField").value;
+			if (player1Name.length ==0) {
+				player1Name = "speler 1"
+			}
+			player2Name = document.getElementById("player2NameField").value;
+			if (player2Name.length ==0) {
+				player2Name = "speler 2"
+			}	
+			updateNuAanDeBeurtText();
+		}
+
+		//updating who's turn is it text
+		function updateNuAanDeBeurtText() {
+			if (currentPlayer == 0) {
+				document.getElementById("currentPlayerText").innerHTML = "Nu aan de beurt: "+player1Name;
+			} else {
+				document.getElementById("currentPlayerText").innerHTML = "Nu aan de beurt: "+player2Name;
+			}
+		}
+
+		//checking for win conditions
+		function checkHWin(placedSlot) {
+			var rowToCheck;
+			var count = 1;
+			switch(placedSlot.id.charAt(0)) {
+				case "0":
+					rowToCheck = row_0
+					break;
+				case "1":
+					rowToCheck = row_1
+					break;
+				case "2":
+					rowToCheck = row_2
+					break;
+				case "3":
+					rowToCheck = row_3
+					break;
+				case "4":
+					rowToCheck = row_4
+					break;
+				case "5":
+					rowToCheck = row_5
+					break;
+				case "6":
+					rowToCheck = row_6
+					break;					
+			}
+
+
+			// hier gebleven, net horizontale win check af. //////////////////////////////
+			var i;
+			for (i=0; i<rowToCheck.length-1; i++) {
+				if (rowToCheck[i].classList.contains(currentColor) && rowToCheck[i+1].classList.contains(currentColor)) {
+					count += 1;
+					console.log(count);
+					if (count >= 4) {
+						if (currentPlayer == 0) {
+							alert(player1Name+" heeft gewonnen!")
+						}
+						if (currentPlayer == 1) {
+							alert(player2Name+" heeft gewonnen!")
+						}
+					}
+				} else {
+					count = 0
+
+				}
+				
+			}
+
+
+			
+
+			
+		}
+
+
+
+
+		//function happens when clicked
+		function slotClicked() {
+			
+			var piecePlaced = false; //we have not yet placed a piece
+
+			//getting the column the player clicked on:
+			var selectedColumn;
+			var i;
+			for (i=0; i<allColumns.length; i++) {
+				if (allColumns[i].includes(event.srcElement)) {
+					selectedColumn = allColumns[i]
+				}
+			}
+
+			//check if there is empty space to put a piece in, if so, put piece
+			//reverse our selected column array so that we get the bottom most box first when we loop over the array
+			selectedColumn.reverse();
+			var k;
+
+			for (k=0; k<selectedColumn.length; k++) {
+				if (!selectedColumn[k].classList.contains(player1Color) && !selectedColumn[k].classList.contains(player2Color)) {
+					selectedColumn[k].classList.add(currentColor); //actual piece placement
+					piecePlaced = true; //updating: we placed a piece!
+
+					checkHWin(selectedColumn[k]);
+					selectedColumn.reverse(); //putting our selected column back in its orinigal order
+					break; //break out of our loop
+				}
+			}
+
+			//check if there is a winner yet // not yet implemented
+			
+
+			//change who's turn it is
+			if (piecePlaced) {
+				if (currentPlayer == 0) {
+					currentPlayer = 1;
+					currentColor = player2Color;
+					document.getElementById("currentPlayerText").innerHTML = "Nu aan de beurt: "+player2Name;	
+				} else {
+					currentPlayer = 0;
+					currentColor = player1Color;
+					document.getElementById("currentPlayerText").innerHTML = "Nu aan de beurt: "+player1Name;		
+				}
+				
+			}
+
+
+		};
+
+
+
+	</script>
+
+	</body>
+
+
+</html>

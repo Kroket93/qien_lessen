@@ -1,0 +1,23 @@
+economie simulator
+
+-zo klein mogelijk
+	-farmen
+		-1 type plant
+		-1 type fertilizer
+		-1 winkel die koopt voor 1 vaste prijs
+		-per dag gebaseerd
+
+		-loop:
+			-planten, groeien, harvesten, verkopen, kopen
+		
+
+
+-interface:
+	-text based;
+		-inventory
+			-object met attributes(item types) en values(hoeveelheden)
+		-shop
+			-knopje kopen
+			-knopje verkopen
+		-je farmland
+			-table: klikken = planten / harvesten

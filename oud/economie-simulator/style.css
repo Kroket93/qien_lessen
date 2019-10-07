@@ -1,0 +1,28 @@
+
+td {
+	outline: 1px solid black;
+	text-align: center;
+	
+	width: 50px;
+	height: 50px;
+}
+
+#dayCounter {
+	margin-left: 5px;
+}
+
+.emptyPlot {
+	background-color: #74663b;
+}
+
+.plantedPlotStg1 {
+	background-color: #9eff51;
+}
+
+.plantedPlotStg2 {
+	background-color: #4bda00;
+}
+
+.plantedPlotStg3 {
+	background-color: #e9ff00;
+}

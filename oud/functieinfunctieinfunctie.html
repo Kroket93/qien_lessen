@@ -1,0 +1,48 @@
+<html>
+	<head>
+		
+		<script>
+			var mijnArray = ["20", "20", "30"]
+			var mijnAndereArray = ["20", "1", mijnArray]
+			var nogEenArray = [mijnArray, mijnArray, mijnAndereArray]
+			var deVierdeArray = [mijnAndereArray, mijnArray, nogEenArray]
+
+
+			function abraCadabra(input, input2) {
+
+			mijnArray.push(input)
+			deVierdeArray.push(input2)
+			console.log(deVierdeArray[2][2][2][3])
+
+			}
+
+			function pilatusPas(input, input2) {
+
+				var j = input
+				var l = input2
+
+				abraCadabra(j, l)
+			}
+
+
+
+			function hocusPocus() {
+
+				var i = "15"
+				var k = "2"
+				pilatusPas(i, k)
+
+			}
+
+			
+		</script>
+
+	</head>
+
+
+	<body>
+		<input type=button value="De magische knop" onclick=hocusPocus()>
+	</body>
+
+	
+</html>

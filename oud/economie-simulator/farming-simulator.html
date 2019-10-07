@@ -1,0 +1,240 @@
+<html>
+
+	<head>
+		<link rel="stylesheet" type="text/css" href="style.css">
+
+	</head>
+
+	<body onload=initialize()>
+
+
+
+		<h1>Farming Simulator</h1>
+
+		<p>Click on the farming plots to plant seeds. Click next day until you can harvest your plants, and sell them in the shop!</p>
+
+		<table id="tableMain">
+			<tbody id="tableBody">
+				<tr>
+					<td class="slot" id="0,0"></td>
+					<td class="slot" id="0,1"></td>
+					<td class="slot" id="0,2"></td>
+				</tr>
+				<tr>
+					<td class="slot" id="1,0"></td>
+					<td class="slot" id="1,1"></td>
+					<td class="slot" id="1,2"></td>
+				</tr>
+				<tr>
+					<td class="slot" id="2,0"></td>
+					<td class="slot" id="2,1"></td>
+					<td class="slot" id="2,2"></td>
+				</tr>
+			</tbody>
+		</table>
+		<input type=button value="next day" onclick=nextDayButton()><span id="dayCounter">day 0</span>
+		<p>Inventory</p>
+		<table>
+			<tbody>
+				<tr>
+					<td id="inventorySlot1">Seeds</td>
+					<td id="inventorySlot1Amount">0</td>
+				</tr>
+				<tr>
+					<td id="inventorySlot2">Plants</td>
+					<td id="inventorySlot2Amount">0</td>
+				</tr>
+				<tr>
+					<td id="inventoryGold">Gold Coins</td>
+					<td id="goldAmount">0</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<table id="dynamicTable">
+			<tbody>
+		
+			</tbody>
+		</table>
+
+
+
+		<p>Shop</p>
+
+		<table>
+			<tbody>
+				<tr>
+					<td>Item</td>
+					<td>Amount</td>
+					<td>Price per unit</td>
+
+				</tr>
+				<tr>
+					<td id="shopInventorySlot1">Seeds</td>
+					<td id="shopInventorySlot1Amount">0</td>
+					<td id="shopInventorySlot1Price">3</td>
+					<td><button type="button" onclick=buySeeds()>Buy</button></td>
+					<td><button type="button" onclick=sellSeeds()>Sell</button></td>
+				</tr>
+				<tr>
+					<td id="shopInventorySlot2">Plants</td>
+					<td id="shopInventorySlot2Amount">0</td>
+					<td id="shopInventorySlot2Price">10</td>
+					<td><button type="button" onclick=buyPlants()>Buy</button></td>
+					<td><button type="button" onclick=sellPlants()>Sell</button></td>
+				</tr>
+			</tbody>
+		</table>
+
+
+
+		<script>
+
+		//testing dynamic table creation
+		
+
+
+
+		//global vars
+		var gold = 0;
+		var day = 0;
+		var plotSize = 3;
+
+		//items
+		var plant = {}
+			plant.value = 5;
+			plant.growthRate = 1;
+
+		//inventory
+		var inventory = {}
+			inventory.seedsAmount = 3
+			inventory.plantsAmount = 0
+			inventory.goldAmount = 0
+
+
+		//shop
+		var shop = {}
+			shop.seedsAmount = 6
+			shop.seedsPrice = 3
+			shop.plantsAmount = 30
+			shop.plantsPrice = 10
+
+
+		//initializing
+		function initialize() {
+			var slots = document.getElementsByClassName("slot");
+			for (var i=0; i<slots.length; i++) {
+				slots[i].onclick = clickedOnFarm;
+				slots[i].classList.add("emptyPlot");
+			}
+			updateText();
+		}
+
+
+		//when user clicks on farm
+		function clickedOnFarm() {
+			if (event.srcElement.classList.contains("emptyPlot") && inventory.seedsAmount > 0) {
+				plantSeed()
+			}
+			if (event.srcElement.classList.contains("plantedPlotStg3")) {
+				harvestPlants();
+			}
+
+			updateText();
+		}
+
+
+
+		function nextDayButton() {
+			day +=1;
+			growPlants()
+			shop.seedsAmount += 3
+			updateText();
+		}
+
+		function updateText() {
+			document.getElementById("inventorySlot1Amount").innerHTML = inventory.seedsAmount;
+			document.getElementById("goldAmount").innerHTML = inventory.goldAmount;
+			document.getElementById("inventorySlot2Amount").innerHTML = inventory.plantsAmount;
+			document.getElementById("shopInventorySlot1Amount").innerHTML = shop.seedsAmount;
+			document.getElementById("shopInventorySlot1Price").innerHTML = shop.seedsPrice;
+			document.getElementById("shopInventorySlot2Amount").innerHTML = shop.plantsAmount;
+			document.getElementById("shopInventorySlot2Price").innerHTML = shop.plantsPrice;
+			document.getElementById("dayCounter").innerHTML = ("day: "+day)
+
+		}
+
+		function plantSeed() {
+			event.srcElement.classList.remove("emptyPlot");
+			event.srcElement.classList.add("plantedPlotStg1");
+			inventory.seedsAmount -= 1			
+
+		}
+
+		function growPlants() {
+			var slots = document.getElementsByClassName("slot");
+			for (var i=0; i<slots.length; i++) {
+				if (slots[i].classList.contains("plantedPlotStg2")) {
+					slots[i].classList.remove("plantedPlotStg2");
+					slots[i].classList.add("plantedPlotStg3");
+				}
+				if (slots[i].classList.contains("plantedPlotStg1")) {
+					slots[i].classList.remove("plantedPlotStg1");
+					slots[i].classList.add("plantedPlotStg2");
+				}
+			}
+
+		}
+
+		function harvestPlants() {
+			event.srcElement.classList.remove("plantedPlotStg3");
+			event.srcElement.classList.add("emptyPlot");
+			inventory.seedsAmount += 1;
+			inventory.plantsAmount += 1;
+		}
+
+		function buySeeds() {
+			if (inventory.goldAmount > shop.seedsPrice) {
+				inventory.goldAmount -= shop.seedsPrice;
+				inventory.seedsAmount += 1;
+				shop.seedsAmount -=1;
+			}
+			updateText()
+		}
+
+		function sellSeeds() {
+			if (inventory.seedsAmount > 0) {
+				inventory.seedsAmount -= 1;
+				inventory.goldAmount += shop.seedsPrice * 0.7;
+				shop.seedsAmount += 1;
+			}
+			updateText()
+		}
+
+		function buyPlants() {
+			if (inventory.goldAmount > shop.plantsPrice) {
+				inventory.goldAmount -= shops.plantsPrice;
+				inventory.plantsAmount += 1;
+				shop.plantsAmount -= 1;
+			}
+			updateText()
+		}
+
+		function sellPlants() {
+			if (inventory.plantsAmount > 0) {
+				inventory.plantsAmount -=1;
+				inventory.goldAmount += shop.plantsPrice * 0.7;
+				shop.plantsAmount += 1;
+			}
+			updateText()
+		}
+			
+		</script>
+		
+
+		
+
+	</body>
+
+	
+</html>

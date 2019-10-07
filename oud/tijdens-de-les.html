@@ -1,0 +1,48 @@
+<html>
+	<head>
+
+		<script>
+			var weekdagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"]
+			function checkenMetIf() {
+				
+				for (var x=0; x<weekdagen.length; x++) {
+					if (weekdagen[x] == "zondag") {
+						alert("er zit zondag in")
+					}
+				}
+			}
+
+			function checkenMetIncludes() {
+				if (weekdagen.includes("zondag")) {
+					alert("er zit zondag in")
+				}
+			}
+
+			function verwijderFunctie() {
+				var teVerwijderen = "zondag"
+				for (var x=0; x<weekdagen.length; x++) {
+					if (weekdagen[x] == teVerwijderen) {
+					weekdagen.splice(x)
+	
+					}
+					
+				}
+
+			}
+
+			function toevoegFunctie() {
+				if (!weekdagen.includes("zondag")) {
+					weekdagen.push("zondag")
+				}
+			}
+		</script>
+
+
+	</head>
+	<body>
+		<input type=button value="klik op mij om te kijken of zondag er in zit via een if statement" onclick=checkenMetIf()><br>
+		<input type=button value="klik op mij om te kijken of zondag er in zit via de includes() methode" onclick=checkenMetIncludes()><br>
+		<input type=button value="klik op mij om zondag er uit te halen" onclick=verwijderFunctie()><br>
+		<input type=button value="klik op mij om zondag toe te voegen als die er nog niet in zit" onclick=toevoegFunctie()>
+	</body>
+</html>
