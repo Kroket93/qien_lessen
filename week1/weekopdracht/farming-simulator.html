@@ -88,6 +88,12 @@
 					<td><button type="button" onclick=buyPlants()>Buy</button></td>
 					<td><button type="button" onclick=sellPlants()>Sell</button></td>
 				</tr>
+				<tr>
+					<td id="shopInventorySlot3">Farm Upgrade</td>
+					<td id="shopInventorySlot3Amount">1</td>
+					<td id="shopInventorySlot3Price">100</td>
+					<td><button type="button" onclick=buyFarmUpgrade()>Buy</td>
+				</tr>
 			</tbody>
 		</table>
 
@@ -118,6 +124,7 @@
 			shop.seedsPrice = 3
 			shop.plantsAmount = 30
 			shop.plantsPrice = 10
+			shop.farmUpgradePrice = 100
 
 		//farm
 		var farm = [];
@@ -135,7 +142,6 @@
 
 		//make farm table
 		function makeTable(size) {
-
 			//making actual table
 			var dynTable = document.getElementById("dynamicTable")
 			var tableHeight = new Array(size);
@@ -161,12 +167,9 @@
 			for (var i=0; i<farmObjects.length; i++) {
 
 				var tableElement = document.getElementById(farmObjects[i].id)
-
 					tableElement.onclick = clickedOnFarm;
 					tableElement.classList.add("emptyPlot");
-
 				}
-
 			}
 
 		function increaseTableSize(size) {
@@ -204,7 +207,6 @@
 				newCell.id = (rowIdStamp.toString()+","+colIdStamp.toString())
 				rowIdStamp += 1;
 				newPlots.push(newCell)
-
 			}
 
 			//make new plots farmland
@@ -217,10 +219,6 @@
 			for (var i=0; i<document.getElementsByClassName("dynTableCell").length; i++) {
 				console.log(document.getElementsByClassName("dynTableCell")[i].id);
 			}
-
-
-
-
 
 		}
 
@@ -253,10 +251,7 @@
 
 				farmObjects.push(farmPlot);
 			}
-
 			return farmObjects;
-
-
 		}
 
 		//when user clicks on farm
@@ -288,6 +283,7 @@
 			document.getElementById("shopInventorySlot1Price").innerHTML = shop.seedsPrice;
 			document.getElementById("shopInventorySlot2Amount").innerHTML = shop.plantsAmount;
 			document.getElementById("shopInventorySlot2Price").innerHTML = shop.plantsPrice;
+			document.getElementById("shopInventorySlot3Price").innerHTML = shop.farmUpgradePrice;
 			document.getElementById("dayCounter").innerHTML = ("day: "+day)
 
 		}
@@ -322,7 +318,7 @@
 		}
 
 		function buySeeds() {
-			if (inventory.goldAmount > shop.seedsPrice) {
+			if (inventory.goldAmount > shop.seedsPrice && shop.seedsAmount > 0) {
 				inventory.goldAmount -= shop.seedsPrice;
 				inventory.seedsAmount += 1;
 				shop.seedsAmount -=1;
@@ -340,7 +336,7 @@
 		}
 
 		function buyPlants() {
-			if (inventory.goldAmount > shop.plantsPrice) {
+			if (inventory.goldAmount > shop.plantsPrice && shop.plantsAmount > 0) {
 				inventory.goldAmount -= shops.plantsPrice;
 				inventory.plantsAmount += 1;
 				shop.plantsAmount -= 1;
@@ -355,6 +351,15 @@
 				shop.plantsAmount += 1;
 			}
 			updateText()
+		}
+
+		function buyFarmUpgrade() {
+			if (inventory.goldAmount > shop.farmUpgradePrice) {
+				increaseTableSize(1);
+				shop.farmUpgradePrice *= 1.2;
+				inventory.goldAmount -= shop.farmUpgradePrice;
+			}
+			updateText();
 		}
 			
 		</script>
