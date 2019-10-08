@@ -13,7 +13,7 @@
 
 		<p>Click on the farming plots to plant seeds. Click next day until you can harvest your plants, and sell them in the shop!</p>
 
-		<table id="tableMain">
+		<!-- <table id="tableMain">
 			<tbody id="tableBody">
 				<tr>
 					<td class="slot" id="0,0"></td>
@@ -31,8 +31,19 @@
 					<td class="slot" id="2,2"></td>
 				</tr>
 			</tbody>
+		</table> -->
+
+		<input id="tableSizeInput" value="3" type=text><button onclick=dynTableTestButton()>Resize Table</button>
+
+		<button onclick=increaseTableSizeButton()>increase table size</button>
+		<table id="dynamicTable">
+			<tbody>
+		
+			</tbody>
 		</table>
+
 		<input type=button value="next day" onclick=nextDayButton()><span id="dayCounter">day 0</span>
+
 		<p>Inventory</p>
 		<table>
 			<tbody>
@@ -48,12 +59,6 @@
 					<td id="inventoryGold">Gold Coins</td>
 					<td id="goldAmount">0</td>
 				</tr>
-			</tbody>
-		</table>
-
-		<table id="dynamicTable">
-			<tbody>
-		
 			</tbody>
 		</table>
 
@@ -90,11 +95,6 @@
 
 		<script>
 
-		//testing dynamic table creation
-		
-
-
-
 		//global vars
 		var gold = 0;
 		var day = 0;
@@ -119,17 +119,145 @@
 			shop.plantsAmount = 30
 			shop.plantsPrice = 10
 
+		//farm
+		var farm = [];
 
 		//initializing
 		function initialize() {
-			var slots = document.getElementsByClassName("slot");
-			for (var i=0; i<slots.length; i++) {
-				slots[i].onclick = clickedOnFarm;
-				slots[i].classList.add("emptyPlot");
+			makeTable(plotSize);
+			var plots = document.getElementsByClassName("dynTableCell");
+			for (var i=0; i<plots.length; i++) {
+				plots[i].onclick = clickedOnFarm;
+				plots[i].classList.add("emptyPlot");
 			}
 			updateText();
 		}
 
+		//make farm table
+		function makeTable(size) {
+
+			//making actual table
+			var dynTable = document.getElementById("dynamicTable")
+			var tableHeight = new Array(size);
+			var tableLength = new Array(size);
+		
+			var rowIdStamp = 0;
+			for (var i=0; i<tableHeight.length; i++) {
+				var newRow = dynTable.insertRow();
+				newRow.classList.add("dynTableRow");
+				var colIdStamp = 0;
+				for (var j=0; j<tableLength.length; j++) {
+					var newCell = newRow.insertCell();
+					newCell.classList.add("dynTableCell");
+					newCell.id = (rowIdStamp.toString()+","+colIdStamp.toString())
+					colIdStamp += 1
+				}
+				rowIdStamp += 1
+			}
+
+			//initialize new farm plots
+			var farmObjects = farmArrayMaker();
+			var tableElements = document.getElementsByClassName("dynTableCell");
+			for (var i=0; i<farmObjects.length; i++) {
+
+				var tableElement = document.getElementById(farmObjects[i].id)
+
+					tableElement.onclick = clickedOnFarm;
+					tableElement.classList.add("emptyPlot");
+
+				}
+
+			}
+
+		function increaseTableSize(size) {
+			var dynTable = document.getElementById("dynamicTable")
+			var tableHeight = new Array(size);
+			var tableLength = new Array(size);
+			var newPlots = [];
+
+			//first add row with it's cells
+			for (var i=0; i<tableHeight.length; i++) {
+				var newRow = dynTable.insertRow();
+				newRow.classList.add("dynTableRow");
+
+				var rowElements = document.getElementsByClassName("dynTableRow");
+				var tableLength = rowElements[0].childElementCount;
+				var colIdStamp = 0;
+				var rowIdStamp = rowElements.length-1;
+
+				for (var i=0; i<tableLength; i++) {
+					var newCell = newRow.insertCell();
+					newCell.classList.add("dynTableCell");
+					newCell.id = (rowIdStamp.toString()+","+colIdStamp.toString())
+					colIdStamp += 1;
+					newPlots.push(newCell)
+					}
+			}
+
+			//now add column
+			var rowElements = document.getElementsByClassName("dynTableRow");
+			var rowIdStamp = 0;
+			var colIdStamp = rowElements.length-1;
+			for (var i=0; i<rowElements.length; i++) {
+				var newCell = rowElements[i].insertCell();
+				newCell.classList.add("dynTableCell");
+				newCell.id = (rowIdStamp.toString()+","+colIdStamp.toString())
+				rowIdStamp += 1;
+				newPlots.push(newCell)
+
+			}
+
+			//make new plots farmland
+			for (var i=0; i<newPlots.length; i++) {
+				newPlots[i].onclick = clickedOnFarm;
+				newPlots[i].classList.add("emptyPlot");			
+
+			}
+			//debug:
+			for (var i=0; i<document.getElementsByClassName("dynTableCell").length; i++) {
+				console.log(document.getElementsByClassName("dynTableCell")[i].id);
+			}
+
+
+
+
+
+		}
+
+		function increaseTableSizeButton () {
+			addSize = parseInt(document.getElementById("tableSizeInput").value);
+			increaseTableSize(addSize);
+		}
+		function dynTableTestButton() {
+			var dynRowsArray = document.getElementsByClassName("dynTableRow");
+			var dynCellsArray = document.getElementsByClassName("dynTableCell");
+			
+			var loopLength = dynRowsArray.length;
+			for (var j=0; j<loopLength; j++) {
+				document.getElementById("dynamicTable").deleteRow(0);
+			}
+
+			plotSize = parseInt(document.getElementById("tableSizeInput").value);
+			makeTable(plotSize)
+		}
+
+
+		//making array with farm plot objects to keep track of farms
+		function farmArrayMaker() {
+			var plots = document.getElementsByClassName("dynTableCell");
+			var farmObjects = [];
+			for (var i=0; i<plots.length; i++) {
+				farmPlot = {};
+				farmPlot.growthStage = 0;
+				farmPlot.id = plots[i].id;
+
+				farmObjects.push(farmPlot);
+			}
+
+			return farmObjects;
+
+
+		}
 
 		//when user clicks on farm
 		function clickedOnFarm() {
@@ -172,15 +300,15 @@
 		}
 
 		function growPlants() {
-			var slots = document.getElementsByClassName("slot");
-			for (var i=0; i<slots.length; i++) {
-				if (slots[i].classList.contains("plantedPlotStg2")) {
-					slots[i].classList.remove("plantedPlotStg2");
-					slots[i].classList.add("plantedPlotStg3");
+			var plots = document.getElementsByClassName("dynTableCell");
+			for (var i=0; i<plots.length; i++) {
+				if (plots[i].classList.contains("plantedPlotStg2")) {
+					plots[i].classList.remove("plantedPlotStg2");
+					plots[i].classList.add("plantedPlotStg3");
 				}
-				if (slots[i].classList.contains("plantedPlotStg1")) {
-					slots[i].classList.remove("plantedPlotStg1");
-					slots[i].classList.add("plantedPlotStg2");
+				if (plots[i].classList.contains("plantedPlotStg1")) {
+					plots[i].classList.remove("plantedPlotStg1");
+					plots[i].classList.add("plantedPlotStg2");
 				}
 			}
 

@@ -1,0 +1,38 @@
+
+body {
+    text-align: center;
+    background-image: url("afbeeldingen/vogels_4.jpg");
+    background-size: 400px 400px;
+}
+
+form {
+    margin: 20px;
+    padding: 5px;
+    outline: 3px dotted rgb(255,192,203);
+    font-family:'Courier New', Courier, monospace;
+}
+
+.normaleParagraaf {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:darkgreen;
+    font-size:2em;
+}
+
+#stiekemeParagraaf {
+    background-color: #ff9933;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgba(153,76,0, 0.7);
+    font-style: italic;
+}
+
+.green {
+    background-color: green;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.red {
+    background-color: red;
+}

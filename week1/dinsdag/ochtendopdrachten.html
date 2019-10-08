@@ -1,0 +1,47 @@
+<html>
+	<head>
+		
+		<script>
+
+			var lokaal = {};
+			lokaal.verdieping = 3;
+			lokaal.naam = "Het grote lokaal";
+			lokaal.bezet = false;
+
+			function klikfunctie() {
+				alert("er is geklikt")
+			}
+
+			function lokaalStatus(lokaal) {
+				if (lokaal.bezet) {
+					return("Het lokaal "+lokaal.naam+" is op de verdieping "+lokaal.verdieping+" en is bezet");
+
+				} else {
+					return("Het lokaal "+lokaal.naam+" is op de verdieping "+lokaal.verdieping+" en is niet bezet");
+				}
+			}
+
+			function optellen() {
+				var mijnArray = new Array(10);
+
+				for (var i=1; i < mijnArray.length+1; i++) {
+					document.getElementById("optellenResultaat").innerHTML += i+"<br>"
+				}
+			}
+
+			
+		</script>
+
+	</head>
+
+
+	<body>
+		<p>De man was <i onclick=klikfunctie()>erg </i>boos.</p>
+		<br>
+		<button onclick=optellen()>klik hier om op te tellen</button>
+		<div id="optellenResultaat"></div>
+
+	</body>
+
+	
+</html>
