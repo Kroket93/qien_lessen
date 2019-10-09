@@ -251,7 +251,7 @@
 				plantSeed()
 			}
 			if (event.srcElement.classList.contains("plantedPlotStg3")) {
-				harvestPlants();
+				harvestPlants(event.srcElement);
 			}
 
 			updateText();
@@ -301,11 +301,22 @@
 
 		}
 
-		function harvestPlants() {
-			event.srcElement.classList.remove("plantedPlotStg3");
-			event.srcElement.classList.add("emptyPlot");
-			inventory.seedsAmount += 1;
-			inventory.plantsAmount += 1;
+		function harvestPlants(plot) {
+			if (plot.classList.contains("plantedPlotStg3")) {
+					plot.classList.remove("plantedPlotStg3");
+					plot.classList.add("emptyPlot");
+					inventory.plantsAmount += 1;
+
+					//0.2 chance of getting extra seed
+					var randomNumber = Math.random()
+					console.log(randomNumber);
+					if (randomNumber > 0.8) {
+						inventory.seedsAmount += 2;
+					} else {
+						inventory.seedsAmount += 1;
+					}
+			}
+		
 		}
 
 		function buySeeds() {
@@ -368,15 +379,12 @@
 		function harvestAll() {
 			var allPlots = document.getElementsByClassName("dynTableCell");
 			for (var i=0; i<allPlots.length; i++) {
-				if (allPlots[i].classList.contains("plantedPlotStg3")) {
-					allPlots[i].classList.remove("plantedPlotStg3");
-					allPlots[i].classList.add("emptyPlot");
-					inventory.plantsAmount += 1;
-					inventory.seedsAmount += 1;
-				}
+				harvestPlants(allPlots[i]);
 			}
 			updateText();
 		}
+			
+		
 
 		function sellAllPlants() {
 			inventory.goldAmount += (inventory.plantsAmount * shop.plantsPrice * 0.7);
