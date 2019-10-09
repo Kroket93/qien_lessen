@@ -8,7 +8,7 @@
 
 	<body>
 
-		<div id="divje"></div>
+		<h1 id="divje"></h1>
 	
 	</body>
 
@@ -16,38 +16,44 @@
 
 
 			class DierenuitlaatService{
-
 				constructor() {
-					this.tariefPerUur = 15;
+					this.startTarief = 15;
+					this.tariefPerUur = 8.5;
 				}
 
-				uitlaten(dier) {
-					dier.rondlopen();
+				uitlaten(dier, uren) {
+					var kosten = this.startTarief + (uren * this.tariefPerUur * dier.gevaarFactor);
+					dier.rondlopen(kosten);
 				}
-
 			}
 
 			class Dier {
-
-				constructor(inputNaam) {
-					this.kleurvacht = "bruin";
+				constructor(inputNaam, gevaarFactor, kleur) {
+					this.kleurvacht = kleur;
 					this.naam = inputNaam;
+					this.gevaarFactor = gevaarFactor;
 				}
 
-				rondlopen() {
-					document.getElementById("divje").innerHTML += ("hoi ik ben "+this.naam+" en ik ben aan het rondlopen met mijn "+this.kleurvacht+"kleurige vacht.");
+				rondlopen(kosten) {
+					document.getElementById("divje").innerHTML += ("hoi ik ben "+this.naam+" en ik ben aan het rondlopen met mijn "+this.kleurvacht+"kleurige vacht. Deze wandeling kost "+parseInt(kosten)+" euro."+"<br><br>");
 				}
 			}
 
 			//dieren initializen
-			var beer = new Dier("Jan de beer");
-			var hert = new Dier("Kees het hert");
-			var ijsbeer = new Dier("Hans de ijsbeer");
-			ijsbeer.kleurvacht = "wit";
+			var beer = new Dier("Bernard de beer", 3, "bruin");
+			var hert = new Dier("Hans het hert", 1, "bruin");
+			var ijsbeer = new Dier("Isaak de ijsbeer", 3, "wit");
+			var muis = new Dier("Maikel de muis", 0.5, "grijs");
 
 			//uitlaatservice initializen
 			var uitlaatServiceJanssen = new DierenuitlaatService();
-			uitlaatServiceJanssen.uitlaten(ijsbeer);
+
+			//dieren aanmelden om uit te laten
+			var tijdsduur = 1.8;
+			uitlaatServiceJanssen.uitlaten(beer, tijdsduur);
+			uitlaatServiceJanssen.uitlaten(muis, tijdsduur);
+			uitlaatServiceJanssen.uitlaten(hert, tijdsduur);
+			uitlaatServiceJanssen.uitlaten(ijsbeer, tijdsduur);
 
 
 	</script>	
