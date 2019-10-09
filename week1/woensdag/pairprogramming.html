@@ -1,34 +1,55 @@
 <html>
 	<head>
 		
-		<script>
 
-
-			class Dier {
-				kleurvacht = "bruin";
-				naam = "standaard naam";
-
-				rondlopen() {
-					console.log("hoi ik ben "+this.naam+" en ik ben aan het rondlopen met mijn "+this.kleurvacht+"kleurige vacht.");
-				}
-			}
-
-			var beer = new Dier();
-			var hert = new Dier();
-			var ijsbeer = new Dier();
-
-			ijsbeer.kleurvacht = "wit";
-			ijsbeer.naam = "Jan de ijsbeer";
-			ijsbeer.rondlopen();
-
-		</script>
 
 	</head>
 
 
 	<body>
 
+		<div id="divje"></div>
+	
 	</body>
 
+	<script>
+
+
+			class DierenuitlaatService{
+
+				constructor() {
+					this.tariefPerUur = 15;
+				}
+
+				uitlaten(dier) {
+					dier.rondlopen();
+				}
+
+			}
+
+			class Dier {
+
+				constructor(inputNaam) {
+					this.kleurvacht = "bruin";
+					this.naam = inputNaam;
+				}
+
+				rondlopen() {
+					document.getElementById("divje").innerHTML += ("hoi ik ben "+this.naam+" en ik ben aan het rondlopen met mijn "+this.kleurvacht+"kleurige vacht.");
+				}
+			}
+
+			//dieren initializen
+			var beer = new Dier("Jan de beer");
+			var hert = new Dier("Kees het hert");
+			var ijsbeer = new Dier("Hans de ijsbeer");
+			ijsbeer.kleurvacht = "wit";
+
+			//uitlaatservice initializen
+			var uitlaatServiceJanssen = new DierenuitlaatService();
+			uitlaatServiceJanssen.uitlaten(ijsbeer);
+
+
+	</script>	
 	
 </html>
