@@ -16,6 +16,11 @@
 		Try to get the highest amount of gold possible at day 100!
 		</p>
 
+		<div> Enter your name: 
+			<input id="nameInputField"type=text><input type=button value="submit" onclick=submitName()>
+		</div>
+		<br>
+
 		<div class="pageRow">
 
 			<div class="pageColumn">
@@ -35,6 +40,11 @@
 
 			</div>
 		<div class="pageColumn">
+
+			<div id="highscores">
+				Highscores will appear here.
+			</div>
+
 			<p>Inventory</p>
 			<table>
 				<tbody>
@@ -99,6 +109,7 @@
 		var day = 0;
 		var plotSize = 3;
 		var scores = [];
+		var name = ""
 
 		//items
 		var plant = {}
@@ -122,6 +133,15 @@
 
 		//farm
 		var farm = [];
+
+		//name input
+
+		function submitName() {
+			name = document.getElementById("nameInputField").value;
+			if (name.length == 0) {
+				name = "No name"
+			}
+		}
 
 		//initializing
 		function initialize() {
@@ -272,10 +292,21 @@
 		function update() {
 			console.log("day: "+day);
 			updateText();
-			if (day == 100) {
-				scores.push(inventory.goldAmount)
+			if (day == 10) {
+				score = [inventory.goldAmount, name]
+				scores.push(score)
 				alert("You reached day 100! Your gold score of "+inventory.goldAmount+" has been added to the scoreboard. You can continue playing if you like.");
 			}
+
+			//to fix
+			// var highscoreField = document.getElementById("highscores")
+			// highscoreField.innerHTML = "";
+			// highscoreField.innerHTML += scores[0]
+			// highscoreField.innerHTML += scores[1]
+			// highscoreField.innerHTML += scores[2]
+			// highscoreField.innerHTML += scores[3]
+			// highscoreField.innerHTML += scores[4]
+
 		}
 
 		function updateText() {
