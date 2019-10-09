@@ -1,5 +1,6 @@
 <html>
 	<head>
+        <link rel="stylesheet" type="text/css" href="style.css">
 		
 		<script>
 
@@ -11,13 +12,34 @@
 
                 var width = 11;
                 var height = 11;
+                var table = document.getElementById("table");
 
-                var table = document.getElementById("table")
+                for (i=0; i<width; i++) {
+                    var newRow = table.insertRow();
+                    newRow.classList.add("row");
 
-
+                    for (j=0; j<height; j++) {
+                        var newCell = newRow.insertCell();
+                        newCell.classList.add("cell");
+                    }
+                }
+                addCoordinateLabels();
             }
 
 
+            function addCoordinateLabels() {
+                var firstRow = document.getElementsByClassName("row")[0].childNodes;
+
+                var columnCoordinates = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+                for (var i=1; i<firstRow.length; i++) {
+                    firstRow[i].innerHTML = columnCoordinates[i-1];
+                }
+
+                var allRows = document.getElementsByClassName("row")
+                for (var i=1; i<allRows.length; i++) {
+                    allRows[i].childNodes[0].innerHTML = i;
+                }
+            }
 
 
             //classes:
@@ -25,6 +47,11 @@
 
             //zee, met arrays voor lengte x hoogte?
             // // misschien hoeft arrays niet
+
+            class Zee {
+
+                
+            }
 
             //klikken op table element:
             // // check of er een boot staat
@@ -44,7 +71,7 @@
 	</head>
 
 
-	<body>
+	<body onload=initializeTable()>
 
         <table id="table">
             <tbody>
