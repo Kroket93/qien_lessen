@@ -12,7 +12,9 @@
 
 		<h1>Farming Simulator</h1>
 
-		<p>Click on the farming plots to plant seeds. Click next day until you can harvest your plants, and sell them in the shop!</p>
+		<p>Click on the farming plots to plant seeds. Click next day until you can harvest your plants, and sell them in the shop! <br>
+		Try to get the highest amount of gold possible at day 100!
+		</p>
 
 		<div class="pageRow">
 
@@ -96,6 +98,7 @@
 		var gold = 0;
 		var day = 0;
 		var plotSize = 3;
+		var scores = [];
 
 		//items
 		var plant = {}
@@ -128,7 +131,7 @@
 				plots[i].onclick = clickedOnFarm;
 				plots[i].classList.add("emptyPlot");
 			}
-			updateText();
+			update();
 		}
 
 		//make farm table
@@ -254,7 +257,7 @@
 				harvestPlants(event.srcElement);
 			}
 
-			updateText();
+			update();
 		}
 
 
@@ -263,7 +266,16 @@
 			day +=1;
 			growPlants()
 			shop.seedsAmount += 3
+			update();
+		}
+
+		function update() {
+			console.log("day: "+day);
 			updateText();
+			if (day == 100) {
+				scores.push(inventory.goldAmount)
+				alert("You reached day 100! Your gold score of "+inventory.goldAmount+" has been added to the scoreboard. You can continue playing if you like.");
+			}
 		}
 
 		function updateText() {
@@ -309,7 +321,6 @@
 
 					//0.2 chance of getting extra seed
 					var randomNumber = Math.random()
-					console.log(randomNumber);
 					if (randomNumber > 0.8) {
 						inventory.seedsAmount += 2;
 					} else {
@@ -325,7 +336,7 @@
 				inventory.seedsAmount += 1;
 				shop.seedsAmount -=1;
 			}
-			updateText()
+			update()
 		}
 
 		function sellSeeds() {
@@ -334,7 +345,7 @@
 				inventory.goldAmount += shop.seedsPrice * 0.7;
 				shop.seedsAmount += 1;
 			}
-			updateText()
+			update()
 		}
 
 		function buyPlants() {
@@ -343,7 +354,7 @@
 				inventory.plantsAmount += 1;
 				shop.plantsAmount -= 1;
 			}
-			updateText()
+			update()
 		}
 
 		function sellPlants() {
@@ -352,7 +363,7 @@
 				inventory.goldAmount += shop.plantsPrice * 0.7;
 				shop.plantsAmount += 1;
 			}
-			updateText()
+			update()
 		}
 
 		function buyFarmUpgrade() {
@@ -361,7 +372,7 @@
 				inventory.goldAmount -= shop.farmUpgradePrice;
 				shop.farmUpgradePrice *= 1.2;
 			}
-			updateText();
+			update();
 		}
 
 		function plantAll() {
@@ -373,7 +384,7 @@
 					inventory.seedsAmount -=1;
 				}
 			}
-			updateText();
+			update();
 		}
 
 		function harvestAll() {
@@ -381,7 +392,7 @@
 			for (var i=0; i<allPlots.length; i++) {
 				harvestPlants(allPlots[i]);
 			}
-			updateText();
+			update();
 		}
 			
 		
@@ -390,7 +401,7 @@
 			inventory.goldAmount += (inventory.plantsAmount * shop.plantsPrice * 0.7);
 			shop.plantsAmount += inventory.plantsAmount;
 			inventory.plantsAmount = 0;
-			updateText();
+			update();
 
 		}
 			
