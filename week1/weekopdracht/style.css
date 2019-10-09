@@ -1,3 +1,17 @@
+body {
+	text-align: center;
+	font-family: 'Courier New', Courier, monospace;
+}
+
+h1 {
+	font-weight: 600;
+	font-size: 4em;
+}
+
+table {
+	margin-left: auto;
+	margin-right: auto;
+}
 
 td {
 	outline: 1px solid black;
@@ -5,6 +19,14 @@ td {
 	
 	width: 50px;
 	height: 50px;
+}
+
+.pageRow {
+	display: flex;
+}
+
+.pageColumn {
+	flex: 50%;
 }
 
 #dayCounter {

@@ -8,96 +8,85 @@
 	<body onload=initialize()>
 
 
+		
 
 		<h1>Farming Simulator</h1>
 
 		<p>Click on the farming plots to plant seeds. Click next day until you can harvest your plants, and sell them in the shop!</p>
 
-		<!-- <table id="tableMain">
-			<tbody id="tableBody">
-				<tr>
-					<td class="slot" id="0,0"></td>
-					<td class="slot" id="0,1"></td>
-					<td class="slot" id="0,2"></td>
-				</tr>
-				<tr>
-					<td class="slot" id="1,0"></td>
-					<td class="slot" id="1,1"></td>
-					<td class="slot" id="1,2"></td>
-				</tr>
-				<tr>
-					<td class="slot" id="2,0"></td>
-					<td class="slot" id="2,1"></td>
-					<td class="slot" id="2,2"></td>
-				</tr>
-			</tbody>
-		</table> -->
+		<div class="pageRow">
 
-		<input id="tableSizeInput" value="3" type=text><button onclick=dynTableTestButton()>Resize Table</button>
+			<div class="pageColumn">
 
-		<button onclick=increaseTableSizeButton()>increase table size</button>
-		<table id="dynamicTable">
-			<tbody>
-		
-			</tbody>
-		</table>
+				<table id="dynamicTable">
+					<tbody>
+				
+					</tbody>
+				</table>
 
-		<input type=button value="next day" onclick=nextDayButton()><span id="dayCounter">day 0</span>
+				<input type=button value="next day" onclick=nextDayButton()><span id="dayCounter">day 0</span>
+				<br>
+				<button onclick=plantAll()>plant all</button>
+				<button onclick=harvestAll()>harvest all</button>
 
-		<p>Inventory</p>
-		<table>
-			<tbody>
-				<tr>
-					<td id="inventorySlot1">Seeds</td>
-					<td id="inventorySlot1Amount">0</td>
-				</tr>
-				<tr>
-					<td id="inventorySlot2">Plants</td>
-					<td id="inventorySlot2Amount">0</td>
-				</tr>
-				<tr>
-					<td id="inventoryGold">Gold Coins</td>
-					<td id="goldAmount">0</td>
-				</tr>
-			</tbody>
-		</table>
+			</div>
+		<div class="pageColumn">
+			<p>Inventory</p>
+			<table>
+				<tbody>
+					<tr>
+						<td id="inventorySlot1">Seeds</td>
+						<td id="inventorySlot1Amount">0</td>
+					</tr>
+					<tr>
+						<td id="inventorySlot2">Plants</td>
+						<td id="inventorySlot2Amount">0</td>
+					</tr>
+					<tr>
+						<td id="inventoryGold">Gold Coins</td>
+						<td id="goldAmount">0</td>
+					</tr>
+				</tbody>
+			</table>
 
 
 
-		<p>Shop</p>
+			<p>Shop</p>
 
-		<table>
-			<tbody>
-				<tr>
-					<td>Item</td>
-					<td>Amount</td>
-					<td>Price per unit</td>
+			<table>
+				<tbody>
+					<tr>
+						<td>Item</td>
+						<td>Amount</td>
+						<td>Price per unit</td>
 
-				</tr>
-				<tr>
-					<td id="shopInventorySlot1">Seeds</td>
-					<td id="shopInventorySlot1Amount">0</td>
-					<td id="shopInventorySlot1Price">3</td>
-					<td><button type="button" onclick=buySeeds()>Buy</button></td>
-					<td><button type="button" onclick=sellSeeds()>Sell</button></td>
-				</tr>
-				<tr>
-					<td id="shopInventorySlot2">Plants</td>
-					<td id="shopInventorySlot2Amount">0</td>
-					<td id="shopInventorySlot2Price">10</td>
-					<td><button type="button" onclick=buyPlants()>Buy</button></td>
-					<td><button type="button" onclick=sellPlants()>Sell</button></td>
-				</tr>
-				<tr>
-					<td id="shopInventorySlot3">Farm Upgrade</td>
-					<td id="shopInventorySlot3Amount">1</td>
-					<td id="shopInventorySlot3Price">100</td>
-					<td><button type="button" onclick=buyFarmUpgrade()>Buy</td>
-				</tr>
-			</tbody>
-		</table>
+					</tr>
+					<tr>
+						<td id="shopInventorySlot1">Seeds</td>
+						<td id="shopInventorySlot1Amount">0</td>
+						<td id="shopInventorySlot1Price">3</td>
+						<td><button type="button" onclick=buySeeds()>Buy</button></td>
+						<td><button type="button" onclick=sellSeeds()>Sell</button></td>
+					</tr>
+					<tr>
+						<td id="shopInventorySlot2">Plants</td>
+						<td id="shopInventorySlot2Amount">0</td>
+						<td id="shopInventorySlot2Price">10</td>
+						<td><button type="button" onclick=buyPlants()>Buy</button></td>
+						<td><button type="button" onclick=sellPlants()>Sell</button></td>
+						<td><button onclick=sellAllPlants()>Sell All</button></td>
+					</tr>
+					<tr>
+						<td id="shopInventorySlot3">Farm Upgrade</td>
+						<td id="shopInventorySlot3Amount">1</td>
+						<td id="shopInventorySlot3Price">100</td>
+						<td><button type="button" onclick=buyFarmUpgrade()>Buy</td>
+					</tr>
+				</tbody>
+			</table>
 
-
+			</div>
+		</div>
 
 		<script>
 
@@ -277,13 +266,13 @@
 
 		function updateText() {
 			document.getElementById("inventorySlot1Amount").innerHTML = inventory.seedsAmount;
-			document.getElementById("goldAmount").innerHTML = inventory.goldAmount;
+			document.getElementById("goldAmount").innerHTML = parseInt(inventory.goldAmount);
 			document.getElementById("inventorySlot2Amount").innerHTML = inventory.plantsAmount;
 			document.getElementById("shopInventorySlot1Amount").innerHTML = shop.seedsAmount;
-			document.getElementById("shopInventorySlot1Price").innerHTML = shop.seedsPrice;
+			document.getElementById("shopInventorySlot1Price").innerHTML = parseInt(shop.seedsPrice);
 			document.getElementById("shopInventorySlot2Amount").innerHTML = shop.plantsAmount;
-			document.getElementById("shopInventorySlot2Price").innerHTML = shop.plantsPrice;
-			document.getElementById("shopInventorySlot3Price").innerHTML = shop.farmUpgradePrice;
+			document.getElementById("shopInventorySlot2Price").innerHTML = parseInt(shop.plantsPrice);
+			document.getElementById("shopInventorySlot3Price").innerHTML = parseInt(shop.farmUpgradePrice);
 			document.getElementById("dayCounter").innerHTML = ("day: "+day)
 
 		}
@@ -356,10 +345,43 @@
 		function buyFarmUpgrade() {
 			if (inventory.goldAmount > shop.farmUpgradePrice) {
 				increaseTableSize(1);
-				shop.farmUpgradePrice *= 1.2;
 				inventory.goldAmount -= shop.farmUpgradePrice;
+				shop.farmUpgradePrice *= 1.2;
 			}
 			updateText();
+		}
+
+		function plantAll() {
+			var allPlots = document.getElementsByClassName("dynTableCell");
+			for (var i=0; i<allPlots.length; i++) {
+				if (inventory.seedsAmount > 0 && allPlots[i].classList.contains("emptyPlot")) {
+					allPlots[i].classList.remove("emptyPlot");
+					allPlots[i].classList.add("plantedPlotStg1");
+					inventory.seedsAmount -=1;
+				}
+			}
+			updateText();
+		}
+
+		function harvestAll() {
+			var allPlots = document.getElementsByClassName("dynTableCell");
+			for (var i=0; i<allPlots.length; i++) {
+				if (allPlots[i].classList.contains("plantedPlotStg3")) {
+					allPlots[i].classList.remove("plantedPlotStg3");
+					allPlots[i].classList.add("emptyPlot");
+					inventory.plantsAmount += 1;
+					inventory.seedsAmount += 1;
+				}
+			}
+			updateText();
+		}
+
+		function sellAllPlants() {
+			inventory.goldAmount += (inventory.plantsAmount * shop.plantsPrice * 0.7);
+			shop.plantsAmount += inventory.plantsAmount;
+			inventory.plantsAmount = 0;
+			updateText();
+
 		}
 			
 		</script>
