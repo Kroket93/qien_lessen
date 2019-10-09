@@ -1,0 +1,400 @@
+ 
+ 
+Forloop
+for(var x=0;x<10;x++){
+            console.log("test"+x);
+        }
+array
+ var weekdagen = ["maandag", "dinsdag", "woensdag"];
+        console.log(weekdagen[1]);
+    }
+ 
+if loop
+ if (weekdagen [x] == "zondag") {
+            console.log(weekdagen[x]);
+            alert("Je moet naar de kerk");
+        }  
+ 
+local storage
+function optellen(){
+        var getal1 = document.getElementById("eersteGetal").value;
+        console.log(document.getElementById("eersteGetal").value);
+        localStorage.setItem("zomaariets",getal1);
+    }
+ 
+    function opvragen(){
+        var opgevraagd = localStorage.getItem("zomaariets");
+        alert(opgevraagd);
+    }
+ 
+ 
+while loop
+function totEenBepaaldGetalTellen(eindGetal){ //parameter
+        var getal = 1;
+        while (getal < eindGetal){    
+            console.log(getal);
+            getal++;
+        }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Forloop
+for(var x=0;x<10;x++){
+            console.log("test"+x);
+        }
+array
+ var weekdagen = ["maandag", "dinsdag", "woensdag"];
+        console.log(weekdagen[1]);
+    }
+ 
+if loop
+ if (weekdagen [x] == "zondag") {
+            console.log(weekdagen[x]);
+            alert("Je moet naar de kerk");
+        }  
+ 
+local storage
+function optellen(){
+        var getal1 = document.getElementById("eersteGetal").value;
+        console.log(document.getElementById("eersteGetal").value);
+        localStorage.setItem("zomaariets",getal1);
+    }
+ 
+    function opvragen(){
+        var opgevraagd = localStorage.getItem("zomaariets");
+        alert(opgevraagd);
+    }
+ 
+ 
+while loop
+function totEenBepaaldGetalTellen(eindGetal){ //parameter
+        var getal = 1;
+        while (getal < eindGetal){    
+            console.log(getal);
+            getal++;
+        }
+ 
+ 
+ 
+ 
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            header{
+                border: 1px solid red;
+ 
+            }
+        </style>
+        <script>
+            var studenten;
+            window.onload = uitlezen;
+            function inschrijven(){
+                var student = {};
+                student.firstname = document.getElementById("fvoornaam").value;
+                student.lastname = document.getElementById("fachternaam").value;
+                student.birthdate = document.getElementById("fgebdatum").value;
+                student.gehuwd = document.getElementById("fgehuwd").checked;
+                student.progErvaring = getErvaring();
+                studenten.push(student);
+                var studentenJson = JSON.stringify(studenten);
+                localStorage.setItem("mijnstudenten", studentenJson);
+ 
+            }
+            function uitlezen(){
+                var opTeHalen = localStorage.getItem("mijnstudenten");
+                console.log(opTeHalen);
+                var opgehaaldObject = JSON.parse(opTeHalen);
+                console.log(opgehaaldObject);
+                studenten = opgehaaldObject;
+            }
+            function getErvaring(){
+                var deTalen = document.getElementsByName("progerv");
+                for(var x = 0; x < deTalen.length ; x++){
+                    if(  deTalen[x].checked  ){
+                        return deTalen[x].value;
+                    }
+                }
+ 
+            }
+            function starten(){
+                alert("in starten");
+            }
+        </script>
+    </head>
+    <body>
+        <header>
+        <button onclick=starten()>go</button>
+        <form>
+            Voornaam: <input type="text" id="fvoornaam">
+            <br>
+            Achternaam: <input type="text" id="fachternaam">
+            <br>
+            GeboorteDatum: <input type="date" id="fgebdatum">
+            <br>
+            Gehuwd: <input type="checkbox" id="fgehuwd">
+            <br>
+            C#<input type="radio" name="progerv" value="C#">
+            java<input type="radio" name="progerv" value="java">
+            PHP<input type="radio" name="progerv" value="php">
+            <input type=button value="inschrijven" onclick="inschrijven()">
+            <input type="button" value="uitlezen" onclick="uitlezen()">
+            <ol type=a>
+            <li>hallo</li>
+            <li>doei</li>
+            </ol>
+        </form>
+    </header>
+    </body>
+</html>
+ 
+ 
+ 
+ 
+ 
+ 
+===========================
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        </style>
+        <script>
+            var studenten;
+            window.onload = uitlezen;
+            function inschrijven(){
+                var student = {};
+                student.firstname = document.getElementById("fvoornaam").value;
+                student.lastname = document.getElementById("fachternaam").value;
+                student.birthdate = document.getElementById("fgebdatum").value;
+                studenten.push(student);
+                var studentenJson = JSON.stringify(studenten);
+                localStorage.setItem("mijnstudenten", studentenJson);
+ 
+            }
+            function uitlezen(){
+                var opTeHalen = localStorage.getItem("mijnstudenten");
+                console.log(opTeHalen);
+                var opgehaaldObject = JSON.parse(opTeHalen);
+                console.log(opgehaaldObject);
+                studenten = opgehaaldObject;
+            }
+            function starten(){
+                studenten = [];
+            }
+        </script>
+    </head>
+    <body>
+        <button onclick=starten()>go</button>
+        <form>
+            Voornaam: <input type="text" id="fvoornaam">
+            <br>
+            Achternaam: <input type="text" id="fachternaam">
+            <br>
+            GeboorteDatum: <input type="date" id="fgebdatum">
+            <br>
+            <input type=button value="inschrijven" onclick="inschrijven()">
+            <input type="button" value="uitlezen" onclick="uitlezen()">
+        </form>
+    </body>
+</html>
+ 
+ 
+ 
+
+
+
+
+
+
+
+1. 
+Schrijf in code een i tag in html.
+<i> schuins </i>
+
+2.
+Breid de code uit zodat als je op de i klikt er een alert verschijnt.
+<i onclick=alertgeven() > hoi </i> 
+
+<script>
+    function alertgeven(){
+        alert( "tekst" );
+    }
+</script>
+
+3. 
+Wat is het verschil tussen = en == in javascript?
+= is een assignment var x = 12
+== is een vergelijking bijvoorbeeld x == 4 is true
+Dit zijn operators
+
+4. 
+Maak een object in javascript.
+Het object is een lokaal. 
+Een lokaal heeft een verdieping (int).
+Een lokaal heeft een naam (string).
+Een lokaal heeft een bezet (boolean).
+
+Zorg dat je via een functie die om een lokaal als argument vraagt, de zin wordt gereturnd:
+"Het lokaal LOKAALNAAM is op verdieping VERDIEPING en is (NIET) BEZET"
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        </style>
+        <script>
+ 
+            var lokaal3 = {};
+            lokaal3.naam = "geschiedenis";
+            lokaal3.verdieping = 6;
+            lokaal3.bezet = true;
+ 
+            function testen(){
+                var lokaal = {};
+                lokaal.verdieping = 1;
+                lokaal.naam = "wiskunde";
+                lokaal.bezet = true;
+                alert(   isLokaalBezet(lokaal)  );
+                var lokaal2 = {};
+                lokaal2.verdieping = 2;
+                lokaal2.naam = "biologie";
+                lokaal2.bezet = false;
+                console.log( isLokaalBezet(lokaal2) );
+                var uitkomst = isLokaalBezet(lokaal3);
+                alert(uitkomst);
+ 
+            }
+            function isLokaalBezet(lokaalP){
+                 if(lokaalP.bezet){
+                    return "het lokaal "+lokaalP.naam+" is op verdieping "+ lokaalP.verdieping + " en is bezet." ;
+                }else{
+                    return "het lokaal "+lokaalP.naam+" is op verdieping "+ lokaalP.verdieping + " en is niet bezet." ;                
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <i onclick=testen()>testlokaal</i>
+    </body>
+</html>
+
+
+5.
+Wat is de lastige vraag voor de buurman?
+
+6. 
+Maak in code een programma dat:
+Nadat je op een knop drukt, de getallen 1 tot en met 10 onder elkaar in het scherm toont.
+Hint: gebruik een for-loop
+ 
+ 
+<script>
+        function tellen(){
+            console.log("tellen");
+            tot10tellen(11);
+        }
+        function tot10tellen(eindgetal){
+            var getal = 1;
+            while(getal <= eindgetal){
+                console.log(getal + 1);
+                getal++;
+            }
+        }
+    </script>
+    
+    <input type=button onclick=tellen() value="gaan">
+
+
+7. 
+Wat wordt er op het in de alert getoond als je op klik hier klikt?
+<html>
+    <head>
+        <script>
+            var oei = 13;
+            function watnou(oei){
+                alert(oei);
+            }
+        </script>
+    </head>
+    <body>
+        <span onclick=watnou(15) > klik hier </span>
+    </body>
+</html>
+15 shadowing
+
+8. 
+Wat betekent Strongly Typed?
+Bij strongly type wordt het type van de variabele veel specifieker benoemd
+
+
+9. 
+Hoe gaan je een map omhoog in de command line?
+cd ..
+
+10. 
+Wat wordt er met een . bedoeld in de code?
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        </style>
+        <script>
+            function inschrijven(){
+                var student = {};
+                student.firstname = document.getElementById("fvoornaam").value;
+                student.lastname = document.getElementById("fachternaam").value;
+                student.birthdate = document.getElementById("fgebdatum").value;
+                var studentJson = JSON.stringify(student);
+                localStorage.setItem("mijnstudent", studentJson);
+ 
+            }
+            function uitlezen(){
+                var opTeHalen = localStorage.getItem("mijnstudent");
+                console.log(opTeHalen);
+                var opgehaaldObject = JSON.parse(opTeHalen);
+                console.log(opgehaaldObject);
+            }
+        </script>
+    </head>
+    <body>
+        <form>
+            Voornaam: <input type="text" id="fvoornaam">
+            <br>
+            Achternaam: <input type="text" id="fachternaam">
+            <br>
+            GeboorteDatum: <input type="date" id="fgebdatum">
+            <br>
+            <input type=button value="inschrijven" onclick="inschrijven()">
+            <input type="button" value="uitlezen" onclick="uitlezen()">
+        </form>
+    </body>
+</html>
+
+
+
+
