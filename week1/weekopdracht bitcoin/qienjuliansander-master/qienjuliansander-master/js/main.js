@@ -232,10 +232,40 @@ class Bitstamp extends Exchange {
     }
 }
 
+class Bitfinex extends Exchange {
+
+
+    ticker(coin) {
+        if (coin === "BTC") {
+            return "btcusd"
+        } else if (coin === "LTC") {
+            return "ltcusd"
+        } else if (coin === "ETH") {
+            return "ethusd"
+        } else if (coin === "DASH") {
+            return "dashusd"
+        }
+    }
+
+    ticker_to_coin(ticker) {
+        if (ticker === "tBTCUSD") {
+            return "BTC"
+        } else if (ticker === "live_trades_ltcusd") {
+            return "LTC"
+        } else if (ticker === "live_trades_ethusd") {
+            return "ETH"
+        } else if (ticker === "live_trades_dashusd") {
+            return "DASH"
+        }
+    }
+
+
+}
+
 const binance = new Binance("https://api.binance.com/api/v1/ticker/24hr?symbol=", coins);
 const coinbase = new CoinBase("https://api.coinbase.com/v2/prices/", coins);
 const bitstamp = new Bitstamp("https://www.bitstamp.net/api/v2/ticker/", coins);
-// hier komt dan nieuwe exchange
+// const bitfinex = new bitfinex("wss://api-pub.bitfinex.com/ws/2", coins);
 
 setInterval(
     () => {
@@ -263,6 +293,9 @@ function replyHandler(event) {
     } else if (exchange === "bitstamp") {
         bitstamp.process_websocket_data(exchange, data);
     }
+    // } else if (exchange === "bitfinex") {
+    //     bitfinex.process_websocket_data(exchange, data);
+    // }
     //console.log(event.data);
     //alert("Reply: " + event.data);
 }
@@ -270,7 +303,9 @@ function replyHandler(event) {
 const webWorker = new Worker("js\\coinbase.js");
 const webWorker2 = new Worker("js\\bitstamp.js");
 const webWorker3 = new Worker("js\\binance.js");
+const webWorker4 = new Worker("js\\bitfinex.js");
 
 webWorker.addEventListener("message", replyHandler, false);
 webWorker2.addEventListener("message", replyHandler, false);
 webWorker3.addEventListener("message", replyHandler, false);
+webWorker4.addEventListener("message", replyHandler, false);

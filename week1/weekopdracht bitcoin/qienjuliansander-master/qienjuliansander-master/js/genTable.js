@@ -2,7 +2,7 @@ function genTable(){
     var table_body = '<table class="table">';
 
     // lijst krijgen van alle exchangers, om de column headers te kunnen maken 
-    var exchange_array = ["coinbase", "binance", "bitstamp"];
+    var exchange_array = ["coinbase", "binance", "bitstamp", "bitfinex"];
 
     // lijst krijgen van alle currencies, om de row names te kunnen maken
     var currency_array = ["BTC", "ETH", "LTC", "DASH"];
