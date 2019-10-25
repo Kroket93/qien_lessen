@@ -44,8 +44,7 @@ namespace Calculateur
             var button = (Button)sender;
             calculator.pressNumber(button.Text);
             textUpdater();
-            //calculator.update(ref inputBoxA.Text, inputBoxB, operatorBox, outputBox);
-            //property or indexer may not be passed as an out or ref parameter
+
         }
 
 
@@ -72,7 +71,13 @@ namespace Calculateur
 
         private void formulaCalculateButton_Click(object sender, EventArgs e)
         {
-            formulaOutputBox.Text =  calculator.stringCalculate(formulaInputBox.Text);
+            formulaOutputBox.Text =  calculator.stringCalculate(formulaInputBox.Text, inputBoxForX.Text);
+        }
+
+        private void buttonInvert_Click(object sender, EventArgs e)
+        {
+            calculator.invertFocused();
+            textUpdater();
         }
     }
 }

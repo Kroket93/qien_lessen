@@ -26,8 +26,6 @@ namespace Calculateur
         operatorTimes operatorTimes = new operatorTimes();
         operatorDivision operatorDivision = new operatorDivision();
 
-        //testing purposes
-        String formula = "10+15*2";
 
         public Calculator()
         {
@@ -40,11 +38,8 @@ namespace Calculateur
 
         public void calculate()
         {
-            Console.WriteLine(stringCalculate(formula));
-
             if(!String.IsNullOrEmpty(textA)&&!String.IsNullOrEmpty(textB))
             {
-                //list extension?
                 foreach (OperatorBase operat in operatorsList)
                 {
                     if (operatorText == operat.symbol)
@@ -60,10 +55,19 @@ namespace Calculateur
 
         }
 
-        public String stringCalculate(String formula)
+        public String stringCalculate(String formula, String xInput)
         {
-            return new DataTable().Compute(formula, null).ToString();
+            formula = formula.Replace("x", xInput);
+            try
+            {
+                return new DataTable().Compute(formula, null).ToString();
+            }
+            catch(Exception)
+            {
+                return "voer aub een geldige formule in";
+            }
         }
+
 
 
         public int getFocus()
@@ -108,6 +112,7 @@ namespace Calculateur
                 focus = 0;
             }
         }
+
         public void pressButon(String operation) {
             operatorText = operation;
             if (!selectingOperator)
@@ -132,6 +137,25 @@ namespace Calculateur
             else
             {
                 textB += number;
+            }
+        }
+        public void invertFocused()
+        {
+
+            if (focus == 0)
+            {
+                if (!String.IsNullOrEmpty(textA))
+                {
+                    textA = Convert.ToString(Convert.ToDouble(textA) * -1);
+                }
+                
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(textB))
+                {
+                    textB = Convert.ToString(Convert.ToDouble(textB) * -1);
+                }
             }
         }
     }
