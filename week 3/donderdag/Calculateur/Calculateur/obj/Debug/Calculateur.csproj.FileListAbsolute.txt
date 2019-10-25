@@ -1,0 +1,9 @@
+D:\dev\qien_lessen\week 3\donderdag\Calculateur\Calculateur\bin\Debug\Calculateur.exe.config
+D:\dev\qien_lessen\week 3\donderdag\Calculateur\Calculateur\bin\Debug\Calculateur.exe
+D:\dev\qien_lessen\week 3\donderdag\Calculateur\Calculateur\bin\Debug\Calculateur.pdb
+D:\dev\qien_lessen\week 3\donderdag\Calculateur\Calculateur\obj\Debug\Calculateur.csprojAssemblyReference.cache
+D:\dev\qien_lessen\week 3\donderdag\Calculateur\Calculateur\obj\Debug\Calculateur.Form1.resources
+D:\dev\qien_lessen\week 3\donderdag\Calculateur\Calculateur\obj\Debug\Calculateur.Properties.Resources.resources
+D:\dev\qien_lessen\week 3\donderdag\Calculateur\Calculateur\obj\Debug\Calculateur.csproj.GenerateResource.cache
+D:\dev\qien_lessen\week 3\donderdag\Calculateur\Calculateur\obj\Debug\Calculateur.exe
+D:\dev\qien_lessen\week 3\donderdag\Calculateur\Calculateur\obj\Debug\Calculateur.pdb
